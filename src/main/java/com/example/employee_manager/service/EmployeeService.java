@@ -1,6 +1,8 @@
-package com.example.employee_manager.controller;
+package com.example.employee_manager.service;
 
 
+import java.util.List;
+import java.util.Optional;
 import com.example.employee_manager.model.Employee;
 import com.example.employee_manager.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
@@ -23,13 +25,13 @@ public class EmployeeService {
     }
 
     public List<Employee> searchEmployees(String keyword) {
-        if (keyword == null || keyword.isBlank()) {
-            return getAllEmployees();
-        }
-
-        return employeeRepository
-                .findByFullNameContainingIgnoreCase(keyword.trim());
+    if (keyword == null || keyword.isBlank()) {
+        return employeeRepository.findAll();
     }
+
+    return employeeRepository
+            .findByFullNameContainingIgnoreCase(keyword.trim());
+}
 
     public Optional<Employee> getEmployeeById(Long id) {
         return employeeRepository.findById(id);
